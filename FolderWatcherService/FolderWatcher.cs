@@ -48,7 +48,7 @@ namespace FolderWatcherService
                 Console.WriteLine(e.ChangeType + " " + e.FullPath + " " + DateTime.Now.ToString());
                 WriteLine(e.ChangeType + " | " +  e.FullPath + " | " + DateTime.Now.ToString());
                 var message = e.ChangeType + " " + e.FullPath;
-                eventLog.Source = "FolderWatcherService";
+                eventLog.Source = "FolderWatcherServicesss";
                 eventLog.WriteEntry(message, EventLogEntryType.Information);
             }
             catch (Exception)
