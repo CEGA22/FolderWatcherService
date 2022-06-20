@@ -44,8 +44,7 @@ namespace FolderWatcherService
         private static void FileSystemWatcher_Created(object sender, FileSystemEventArgs e)
         {
             try
-            {
-                Console.WriteLine(e.ChangeType + " " + e.FullPath + " " + DateTime.Now.ToString());
+            {                
                 WriteLine(e.ChangeType + " | " +  e.FullPath + " | " + DateTime.Now.ToString());
                 var message = e.ChangeType + " " + e.FullPath;
                 eventLog.Source = "FolderWatcherService";
@@ -61,8 +60,7 @@ namespace FolderWatcherService
         private static void FileSystemWatcher_Renamed(object sender, RenamedEventArgs e)
         {
             try
-            {
-                Console.WriteLine("File renamed: " + e.OldFullPath + " to " + e.FullPath + " " + DateTime.Now.ToString());
+            {               
                 WriteLine("File renamed: \n" + "From " + e.OldName + " to " + e.Name + " | " + DateTime.Now.ToString());
                 var message = "File renamed: " + e.ChangeType + " " + e.FullPath;
                 eventLog.Source = "FolderWatcherService";
