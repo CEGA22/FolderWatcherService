@@ -25,22 +25,15 @@ namespace FolderWatcherService
             fileSystemWatcher.Path = path;
             fileSystemWatcher.NotifyFilter = NotifyFilters.FileName| NotifyFilters.DirectoryName | NotifyFilters.Attributes;
             fileSystemWatcher.Created += FileSystemWatcher_Created;          
-            fileSystemWatcher.Deleted += FileSystemWatcher_Created;
-            fileSystemWatcher.Changed += FileSystemWatcher_Created;
-            fileSystemWatcher.Renamed += FileSystemWatcher_Renamed;
+            fileSystemWatcher.Deleted += FileSystemWatcher_Created;         
+            fileSystemWatcher.Renamed += FileSystemWatcher_Renamed;           
             fileSystemWatcher.EnableRaisingEvents = true;          
         }
+      
         private static void WriteLine(string line)
         {
-            try
-            {
-                File.AppendAllText(@"C:\Folder1\FolderWatch.txt", Environment.NewLine + line);
-            }
-            catch (Exception e)
-            {
-                var x = e.Message;               
-            }
-        } 
+          File.AppendAllText(@"C:\Folder1\FolderWatch.txt", Environment.NewLine + line);         
+        }
         private static void FileSystemWatcher_Created(object sender, FileSystemEventArgs e)
         {
             try
@@ -50,11 +43,10 @@ namespace FolderWatcherService
                 eventLog.Source = "FolderWatcherService";
                 eventLog.WriteEntry(message, EventLogEntryType.Information);
             }
-            catch (Exception)
-            {
-                var errorMessage = "Error occured. Please try again " + e.ChangeType + " | " + e.FullPath;
+            catch (Exception x)
+            {               
                 eventLog.Source = "FolderWatcherService";
-                eventLog.WriteEntry(errorMessage, EventLogEntryType.Warning);
+                eventLog.WriteEntry(x.Message, EventLogEntryType.Warning);
             }
         }
         private static void FileSystemWatcher_Renamed(object sender, RenamedEventArgs e)
@@ -66,11 +58,10 @@ namespace FolderWatcherService
                 eventLog.Source = "FolderWatcherService";
                 eventLog.WriteEntry(message, EventLogEntryType.Information);
             }
-            catch (Exception)
-            {
-                var errorMessage = "File renamed: " + e.ChangeType + " " + e.FullPath;
+            catch (Exception x)
+            {               
                 eventLog.Source = "FolderWatcherService";
-                eventLog.WriteEntry(errorMessage, EventLogEntryType.Warning);
+                eventLog.WriteEntry(x.Message, EventLogEntryType.Warning);
             }           
         }               
         public void Start()

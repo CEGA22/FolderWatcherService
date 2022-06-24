@@ -12,7 +12,8 @@ var exitCode = HostFactory.Run(x =>
         f.WhenStopped(folderwatch => folderwatch.Stop());
     });
 
-    x.RunAsLocalSystem();
+    //x.RunAsLocalSystem();
+    x.RunAsLocalService();
     x.SetServiceName("FolderWatcherService");
     x.SetDisplayName("Folder Watcher Service");
     x.SetDescription("This is the sample folder watcher service used in a demo");
